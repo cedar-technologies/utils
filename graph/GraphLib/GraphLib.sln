@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graph.Core", "Graph.Core\Graph.Core.csproj", "{4ED48985-9AED-4A8B-B2BE-A6003B29DF93}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphLib.Infrastructure", "GraphLib.Infrastructure\GraphLib.Infrastructure.csproj", "{10C87B48-2741-474E-BF8F-981E3D4FF369}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4ED48985-9AED-4A8B-B2BE-A6003B29DF93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ED48985-9AED-4A8B-B2BE-A6003B29DF93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4ED48985-9AED-4A8B-B2BE-A6003B29DF93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4ED48985-9AED-4A8B-B2BE-A6003B29DF93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10C87B48-2741-474E-BF8F-981E3D4FF369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10C87B48-2741-474E-BF8F-981E3D4FF369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10C87B48-2741-474E-BF8F-981E3D4FF369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10C87B48-2741-474E-BF8F-981E3D4FF369}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
