@@ -22,20 +22,19 @@ namespace DataStructure.Infrastructure.Assets
 
         protected Node(T data)
         {
+            if(data == null) throw new ArgumentNullException("data");
             _data = data;
         }
 
         protected void AddNeighbour(Node<T> neighbour)
         {
-            if (!_neighbours.Any(x => x == neighbour))
+            if(!_neighbours.Any(x => x == neighbour))
                 _neighbours.Add(neighbour);
         }
 
         protected void AddNeighbourAt(Node<T> neighbour, int index)
         {
-            if(_neighbours.Count < index)
-                throw new IndexOutOfRangeException();
-            if (_neighbours.Count > index)
+            if(_neighbours.ElementAtOrDefault(index) != null)
                 _neighbours.RemoveAt(index);
             _neighbours.Insert(index, neighbour);
         }
@@ -48,7 +47,7 @@ namespace DataStructure.Infrastructure.Assets
 
         protected void RemoveNeighbour(Node<T> neighbour)
         {
-            if (Neighbours.Any(x => x == neighbour))
+            if(Neighbours.Any(x=> x == neighbour))
                 _neighbours.Remove(neighbour);
         }
 
