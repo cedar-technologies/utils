@@ -4,24 +4,66 @@ using DataStructure.Infrastructure.Assets;
 
 namespace DataStructure.Infrastructure.Trees
 {
-    public class BinarySearchTree<T>
+    public class BinarySearchTree<T> where T : IComparable<T>
     {
         private BinaryTreeNode<T> _root;
-        private Comparer<T> _comparer;
+        private int _count;
 
-        private BinarySearchTree(BinaryTreeNode<T> root, Comparer<T> comparer)
+        private BinarySearchTree(BinaryTreeNode<T> root)
         {
             if (root == null) throw new ArgumentNullException("root");
             _root = root;
-            _comparer = comparer;
+            _count++;
         }
 
-        public static BinarySearchTree<T> Create(T data, Comparer<T> comparer)
+        public static BinarySearchTree<T> Create(T data)
         {
             var root = new BinaryTreeNode<T>(data);
-            return new BinarySearchTree<T>(root, comparer);
+            return new BinarySearchTree<T>(root);
         }
 
+        public void Add(T data)
+        {
+            
+            var node = new BinaryTreeNode<T>(data);
+
+            if (_count == 0)
+            {
+                _count++;
+                _root = node;
+                return;
+            }
+
+            int result = 0;
+
+            BinaryTreeNode<T> currentNode = _root;
+            BinaryTreeNode<T> parent = null;
+
+            while (currentNode != null)
+            {
+                result = data.CompareTo(currentNode.Data);
+
+                if(result == 0) return;
+
+                parent = currentNode;
+                currentNode = result > 0 ? currentNode.Right : currentNode.Left;
+               
+            }
+            
+            _count++;
+
+            if (result > 0)
+            {
+                parent.AddRightNeighbour(node);
+            }
+            else
+            {
+                parent.AddLeftNeighbour(node);
+            }
+           
+
+
+        }
 
         public bool Contains(T data)
         {
@@ -29,8 +71,8 @@ namespace DataStructure.Infrastructure.Trees
 
             while (current != null)
             {
-                var result = _comparer.Compare(current.Data, data);
-
+                var result =  data.CompareTo(current.Data);
+                
                 if (result == 0)
                     return true;
 
