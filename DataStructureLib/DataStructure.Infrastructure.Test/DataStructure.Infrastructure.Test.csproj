@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Assets\BinaryTreeNode\AddNeighbour.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trees\BinarySearchTree\Delete.cs" />
     <Compile Include="Trees\BinaryTree\Create.cs" />
     <Compile Include="Trees\BinaryTree\Clear.cs" />
     <Compile Include="Trees\BinarySearchTree\Search.cs" />

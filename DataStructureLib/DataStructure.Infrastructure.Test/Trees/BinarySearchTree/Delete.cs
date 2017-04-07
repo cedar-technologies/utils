@@ -1,18 +1,15 @@
 ﻿using System;
-using DataStructure.Infrastructure.Assets;
 using DataStructure.Infrastructure.Trees;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DataStructure.Infrastructure.Test.Trees.BinaryTree
 {
     [TestClass]
-    public class Search
+    public class Delete
     {
-
         [TestMethod]
-        public void It_should_retrieve_an_element()
+        public void it_should_delete_a_node()
         {
-
             var data = new DateTime(2017, 1, 1);
 
             var binaryTree = BinarySearchTree<DateTime>.Create(data);
@@ -28,11 +25,12 @@ namespace DataStructure.Infrastructure.Test.Trees.BinaryTree
             binaryTree.Add(new DateTime(2002, 1, 1));
             binaryTree.Add(new DateTime(2005, 2, 1));
 
-            Assert.IsTrue(binaryTree.Contains(new DateTime(2005, 1, 1)));
+            Assert.IsTrue(binaryTree.Delete(new DateTime(2005, 1, 1)));
+            Assert.IsTrue(binaryTree.Delete(new DateTime(2012, 2, 1)));
+
+            Assert.IsFalse(binaryTree.Contains(new DateTime(2005, 1, 1)));
             Assert.IsTrue(binaryTree.Contains(new DateTime(1999, 1, 13)));
             Assert.IsTrue(binaryTree.Contains(new DateTime(2002, 1, 1)));
-
-
         }
 
 

@@ -1,10 +1,12 @@
 ﻿using System;
+using System.CodeDom;
+using System.Collections;
 using System.Collections.Generic;
 using DataStructure.Infrastructure.Assets;
 
 namespace DataStructure.Infrastructure.Trees
 {
-    public class BinarySearchTree<T> where T : IComparable<T>
+    public class BinarySearchTree<T> : ICollection where T : IComparable<T>
     {
         private BinaryTreeNode<T> _root;
         private int _count;
@@ -23,8 +25,7 @@ namespace DataStructure.Infrastructure.Trees
         }
 
         public void Add(T data)
-        {
-            
+        { 
             var node = new BinaryTreeNode<T>(data);
 
             if (_count == 0)
@@ -47,7 +48,6 @@ namespace DataStructure.Infrastructure.Trees
 
                 parent = currentNode;
                 currentNode = result > 0 ? currentNode.Right : currentNode.Left;
-               
             }
             
             _count++;
@@ -61,76 +61,165 @@ namespace DataStructure.Infrastructure.Trees
                 parent.AddLeftNeighbour(node);
             }
            
-
-
         }
 
         public bool Contains(T data)
+        {
+            var result = Find(data);
+            return result != null;
+        }
+
+        public BinaryTreeNode<T> Find(T data)
         {
             var current = _root;
 
             while (current != null)
             {
-                var result =  data.CompareTo(current.Data);
-                
-                if (result == 0)
-                    return true;
-
+                var result = data.CompareTo(current.Data);
+                if (result == 0) return current;
                 current = result > 0 ? current.Right : current.Left;
             }
 
-            return false;
+            return null;
+            
         }
 
-        public List<BinaryTreeNode<T>> PreorderTraversal()
+        public bool Delete(T data)
         {
-            var result = new List<BinaryTreeNode<T>>();
-            PreorderTraversal(_root, ref result);
-            return result;
-        }
+            if (_root == null) return false;
 
-        private void PreorderTraversal(BinaryTreeNode<T> current, ref List<BinaryTreeNode<T>> result)
-        {
-            if (current != null)
+
+            BinaryTreeNode<T> current = _root, parent = null;
+            var result = data.CompareTo(current.Data);
+
+            while (result != 0)
             {
-                result.Add(current);
-                PreorderTraversal(current.Left, ref result);
-                PreorderTraversal(current.Right, ref result);
+                if (result > 0)
+                {
+                    parent = current;
+                    current = current.Right;
+                } else if (result < 0)
+                {
+                    parent = current;
+                    current = current.Left;
+                }
+
+                if (current == null) return false;
+
+                result = data.CompareTo(current.Data);
+
             }
-        }
 
-        public List<BinaryTreeNode<T>> InOrderTraversal()
-        {
-            var result = new List<BinaryTreeNode<T>>();
-            InOrderTraversal(_root, ref result);
-            return result;
-        }
-
-        private void InOrderTraversal(BinaryTreeNode<T> current, ref List<BinaryTreeNode<T>> result)
-        {
-            if (current != null)
+            _count--;
+            if (current.Right == null)
             {
-                InOrderTraversal(current.Left, ref result);
-                result.Add(current);
-                InOrderTraversal(current.Right, ref result);
-            }
-        }
 
-        public List<BinaryTreeNode<T>> PostOrderTraversal()
-        {
-            var result = new List<BinaryTreeNode<T>>();
-            PostOrderTraversal(_root, ref result);
-            return result;
-        }
+                if(parent == null)
+                {
+                    _root = current.Left;
+                }
+                else
+                {
+                    result = parent.Data.CompareTo(current.Data);
+                    if (result > 0)
+                    {
+                        parent.AddLeftNeighbour(current.Left);
+                    } else if (result < 0)
+                    {
+                        parent.AddRightNeighbour(current.Left);
+                    }
 
-        private void PostOrderTraversal(BinaryTreeNode<T> current, ref List<BinaryTreeNode<T>> result)
-        {
-            if (current != null)
+                }
+
+
+            } else if (current.Right.Left == null)
             {
-                PostOrderTraversal(current.Right, ref result);
-                result.Add(current);
-                PostOrderTraversal(current.Left, ref result);
+                current.Right.AddLeftNeighbour(current.Left);
+
+                if (parent == null)
+                {
+                    _root = current.Right;
+                }
+                else
+                {
+                    result = parent.Data.CompareTo(current.Data);
+
+                    if (result > 0)
+                    {
+                        parent.AddLeftNeighbour(current.Right);
+                    }
+                    else if (result < 0)
+                    {
+                        parent.AddRightNeighbour(current.Right);
+                    }
+
+                }
+
             }
+            else
+            {
+                BinaryTreeNode<T> leftMost = current.Right.Left, leftMostParent = current.Right;
+
+                while (leftMost.Left != null)
+                {
+                    leftMostParent = leftMost;
+                    leftMost = leftMost.Left;
+                }
+
+                leftMostParent.AddLeftNeighbour(leftMost.Right);
+
+                leftMost.AddLeftNeighbour(current.Left);
+                leftMost.AddRightNeighbour(current.Right);
+
+                if (parent == null)
+                {
+                    _root = leftMost;
+                }
+                else
+                {
+                    if (current.Data.CompareTo(parent.Data) > 0)
+                    {
+                        parent.AddRightNeighbour(leftMost);
+                    }
+                    else
+                    {
+                        parent.AddRightNeighbour(leftMost);
+                    }
+                }
+            ;
+
+            }
+
+            return true;
         }
+
+        public void Clear()
+        {
+            _root = null;
+            _count = 0;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(Array array, int index)
+        {
+             _root.PostOrderTraversal().ForEach(node =>
+             {
+                 array.SetValue(node, index);
+                 index++;
+             });
+            
+        }
+
+        public int Count
+        {
+            get { return _count; }
+        }
+
+        public object SyncRoot { get; }
+        public bool IsSynchronized { get; }
     }
 }
