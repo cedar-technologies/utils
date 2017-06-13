@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using DataStructure.Infrastructure.Assets;
 
 namespace DataStructure.Infrastructure.Trees
@@ -26,6 +27,9 @@ namespace DataStructure.Infrastructure.Trees
         {
             var root = new BinaryTreeNode<T>(data);
             return new BinaryTree<T>(root);
+
+            var list = new List<string>();
+
         }
 
         public virtual void Clear()

@@ -25,7 +25,7 @@ namespace DataStructure.Infrastructure.Trees
         }
 
         public void Add(T data)
-        { 
+        {
             var node = new BinaryTreeNode<T>(data);
 
             if (_count == 0)
@@ -44,12 +44,12 @@ namespace DataStructure.Infrastructure.Trees
             {
                 result = data.CompareTo(currentNode.Data);
 
-                if(result == 0) return;
+                if (result == 0) return;
 
                 parent = currentNode;
                 currentNode = result > 0 ? currentNode.Right : currentNode.Left;
             }
-            
+
             _count++;
 
             if (result > 0)
@@ -60,29 +60,37 @@ namespace DataStructure.Infrastructure.Trees
             {
                 parent.AddLeftNeighbour(node);
             }
-           
+
         }
 
         public bool Contains(T data)
-        {
-            var result = Find(data);
-            return result != null;
-        }
-
-        public BinaryTreeNode<T> Find(T data)
         {
             var current = _root;
 
             while (current != null)
             {
                 var result = data.CompareTo(current.Data);
-                if (result == 0) return current;
+                if (result == 0) return true;
                 current = result > 0 ? current.Right : current.Left;
             }
 
-            return null;
-            
+            return false;
         }
+
+        //public T Find(T data)
+        //{
+        //    var current = _root;
+
+        //    while (current != null)
+        //    {
+        //        var result = data.CompareTo(current.Data);
+        //        if (result == 0) return current.Data;
+        //        current = result > 0 ? current.Right : current.Left;
+        //    }
+
+        //    return default(T);
+
+        //}
 
         public bool Delete(T data)
         {
@@ -98,7 +106,8 @@ namespace DataStructure.Infrastructure.Trees
                 {
                     parent = current;
                     current = current.Right;
-                } else if (result < 0)
+                }
+                else if (result < 0)
                 {
                     parent = current;
                     current = current.Left;
@@ -114,7 +123,7 @@ namespace DataStructure.Infrastructure.Trees
             if (current.Right == null)
             {
 
-                if(parent == null)
+                if (parent == null)
                 {
                     _root = current.Left;
                 }
@@ -124,7 +133,8 @@ namespace DataStructure.Infrastructure.Trees
                     if (result > 0)
                     {
                         parent.AddLeftNeighbour(current.Left);
-                    } else if (result < 0)
+                    }
+                    else if (result < 0)
                     {
                         parent.AddRightNeighbour(current.Left);
                     }
@@ -132,7 +142,8 @@ namespace DataStructure.Infrastructure.Trees
                 }
 
 
-            } else if (current.Right.Left == null)
+            }
+            else if (current.Right.Left == null)
             {
                 current.Right.AddLeftNeighbour(current.Left);
 
@@ -206,12 +217,12 @@ namespace DataStructure.Infrastructure.Trees
 
         public void CopyTo(Array array, int index)
         {
-             _root.PostOrderTraversal().ForEach(node =>
-             {
-                 array.SetValue(node, index);
-                 index++;
-             });
-            
+            _root.PostOrderTraversal().ForEach(node =>
+            {
+                array.SetValue(node, index);
+                index++;
+            });
+
         }
 
         public int Count
