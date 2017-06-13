@@ -2,20 +2,16 @@
 using System.CodeDom;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using DataStructure.Infrastructure.Assets;
 
 namespace DataStructure.Infrastructure.Trees
 {
-    public class BinarySearchTree<T> : ICollection where T : IComparable<T>
+    public class BinarySearchTree<T> : BinaryTree<T>, ICollection<T> where T : IComparable<T>
     {
-        private BinaryTreeNode<T> _root;
-        private int _count;
 
-        private BinarySearchTree(BinaryTreeNode<T> root)
+        private BinarySearchTree(BinaryTreeNode<T> root) : base(root)
         {
-            if (root == null) throw new ArgumentNullException("root");
-            _root = root;
-            _count++;
         }
 
         public static BinarySearchTree<T> Create(T data)
@@ -77,28 +73,13 @@ namespace DataStructure.Infrastructure.Trees
             return false;
         }
 
-        //public T Find(T data)
-        //{
-        //    var current = _root;
-
-        //    while (current != null)
-        //    {
-        //        var result = data.CompareTo(current.Data);
-        //        if (result == 0) return current.Data;
-        //        current = result > 0 ? current.Right : current.Left;
-        //    }
-
-        //    return default(T);
-
-        //}
-
-        public bool Delete(T data)
+        public bool Remove(T item)
         {
             if (_root == null) return false;
 
 
             BinaryTreeNode<T> current = _root, parent = null;
-            var result = data.CompareTo(current.Data);
+            var result = item.CompareTo(current.Data);
 
             while (result != 0)
             {
@@ -115,7 +96,7 @@ namespace DataStructure.Infrastructure.Trees
 
                 if (current == null) return false;
 
-                result = data.CompareTo(current.Data);
+                result = item.CompareTo(current.Data);
 
             }
 
@@ -204,33 +185,7 @@ namespace DataStructure.Infrastructure.Trees
             return true;
         }
 
-        public void Clear()
-        {
-            _root = null;
-            _count = 0;
-        }
-
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(Array array, int index)
-        {
-            _root.PostOrderTraversal().ForEach(node =>
-            {
-                array.SetValue(node, index);
-                index++;
-            });
-
-        }
-
-        public int Count
-        {
-            get { return _count; }
-        }
-
-        public object SyncRoot { get; }
-        public bool IsSynchronized { get; }
+   
+        
     }
 }

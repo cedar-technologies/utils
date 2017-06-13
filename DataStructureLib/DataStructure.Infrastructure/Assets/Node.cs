@@ -27,7 +27,7 @@ namespace DataStructure.Infrastructure.Assets
 
         protected void AddNeighbour(Node<T> neighbour)
         {
-            if (!_neighbours.Any(x => x == neighbour))
+            if (_neighbours.All(x => x != neighbour))
                 _neighbours.Add(neighbour);
         }
 

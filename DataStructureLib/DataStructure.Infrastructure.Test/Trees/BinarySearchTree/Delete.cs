@@ -25,8 +25,8 @@ namespace DataStructure.Infrastructure.Test.Trees.BinaryTree
             binaryTree.Add(new DateTime(2002, 1, 1));
             binaryTree.Add(new DateTime(2005, 2, 1));
 
-            Assert.IsTrue(binaryTree.Delete(new DateTime(2005, 1, 1)));
-            Assert.IsTrue(binaryTree.Delete(new DateTime(2012, 2, 1)));
+            Assert.IsTrue(binaryTree.Remove(new DateTime(2005, 1, 1)));
+            Assert.IsTrue(binaryTree.Remove(new DateTime(2012, 2, 1)));
 
             Assert.IsFalse(binaryTree.Contains(new DateTime(2005, 1, 1)));
             Assert.IsTrue(binaryTree.Contains(new DateTime(1999, 1, 13)));
