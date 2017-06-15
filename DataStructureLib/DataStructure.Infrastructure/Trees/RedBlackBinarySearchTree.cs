@@ -5,38 +5,19 @@ using DataStructure.Infrastructure.Assets;
 
 namespace DataStructure.Infrastructure.Trees
 {
-    public class RedBlackBinarySearchTree<T> : ICollection<T> where T : IComparable<T>
+    public class RedBlackBinarySearchTree<T> : BinaryTree<RebBlackBinaryTreeNode<T>, T>, ICollection<T> where T : IComparable<T>
     {
-
-        private BinaryTreeNode<T> _root;
-        private int _count;
-
-        public IEnumerator<T> GetEnumerator()
+        public RedBlackBinarySearchTree(RebBlackBinaryTreeNode<T> root) : base(root)
         {
-            throw new NotImplementedException();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public static RedBlackBinarySearchTree<T> Create(T data)
         {
-            return GetEnumerator();
+            var root = new RebBlackBinaryTreeNode<T>(data);
+            return new RedBlackBinarySearchTree<T>(root);
         }
 
         public void Add(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Clear()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Contains(T item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(T[] array, int arrayIndex)
         {
             throw new NotImplementedException();
         }
@@ -45,8 +26,5 @@ namespace DataStructure.Infrastructure.Trees
         {
             throw new NotImplementedException();
         }
-
-        public int Count { get; }
-        public bool IsReadOnly { get; }
     }
 }

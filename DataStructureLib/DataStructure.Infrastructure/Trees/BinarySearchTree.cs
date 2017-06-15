@@ -7,7 +7,7 @@ using DataStructure.Infrastructure.Assets;
 
 namespace DataStructure.Infrastructure.Trees
 {
-    public class BinarySearchTree<T> : BinaryTree<T>, ICollection<T> where T : IComparable<T>
+    public class BinarySearchTree<T> : BinaryTree<BinaryTreeNode<T>, T>, ICollection<T> where T : IComparable<T>
     {
 
         private BinarySearchTree(BinaryTreeNode<T> root) : base(root)
@@ -58,20 +58,7 @@ namespace DataStructure.Infrastructure.Trees
             }
 
         }
-
-        public bool Contains(T data)
-        {
-            var current = _root;
-
-            while (current != null)
-            {
-                var result = data.CompareTo(current.Data);
-                if (result == 0) return true;
-                current = result > 0 ? current.Right : current.Left;
-            }
-
-            return false;
-        }
+ 
 
         public bool Remove(T item)
         {

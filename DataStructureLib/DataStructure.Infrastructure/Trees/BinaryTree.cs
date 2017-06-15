@@ -5,13 +5,13 @@ using DataStructure.Infrastructure.Assets;
 
 namespace DataStructure.Infrastructure.Trees
 {
-    public abstract class BinaryTree<T> : IEnumerable<T> where T : IComparable<T>
+    public abstract class BinaryTree<TNode, T> : IEnumerable<T> where TNode : BinaryTreeNode<T> where T : IComparable<T> 
     {
 
-        protected BinaryTreeNode<T> _root;
+        protected TNode _root;
         protected int _count;
 
-        public BinaryTreeNode<T> Root
+        public TNode Root
         {
             get
             {
@@ -35,11 +35,26 @@ namespace DataStructure.Infrastructure.Trees
             }
         }
 
-        protected BinaryTree(BinaryTreeNode<T> root)
+        protected BinaryTree(TNode root)
         {
             if (root == null) throw new ArgumentNullException("root");
             _root = root;
         }
+
+        public bool Contains(T data)
+        {
+            var current = _root;
+
+            while (current != null)
+            {
+                var result = data.CompareTo(current.Data);
+                if (result == 0) return true;
+                current = result > 0 ? (TNode)current.Right : (TNode)current.Left;
+            }
+
+            return false;
+        }
+
 
         public void Clear()
         {
