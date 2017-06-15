@@ -12,10 +12,10 @@ namespace DataStructure.Infrastructure.Assets
         {
         }
 
-        public BinaryTreeNode(T data, BinaryTreeNode<T> left, BinaryTreeNode<T> right) : this(data)
+        public new BinaryTreeNode<T> Parent
         {
-            AddNeighbour(left);
-            AddNeighbour(right);
+            get { return (BinaryTreeNode<T>) base.Parent; }
+            set { base.Parent = value; }
         }
 
         public BinaryTreeNode<T> Left

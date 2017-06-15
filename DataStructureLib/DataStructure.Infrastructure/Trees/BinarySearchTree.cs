@@ -57,6 +57,8 @@ namespace DataStructure.Infrastructure.Trees
                 parent.AddLeftNeighbour(node);
             }
 
+            node.Parent = parent;
+
         }
  
 
@@ -168,6 +170,8 @@ namespace DataStructure.Infrastructure.Trees
             ;
 
             }
+
+            current.Parent = null;
 
             return true;
         }

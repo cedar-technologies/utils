@@ -9,6 +9,13 @@ namespace DataStructure.Infrastructure.Assets
 
         private T _data;
         private List<Node<T>> _neighbours = new List<Node<T>>();
+        private Node<T> _parent;
+
+        public Node<T> Parent
+        {
+            get { return _parent; }
+            set { _parent = value; }
+        }
 
         public T Data
         {

@@ -26,5 +26,13 @@ namespace DataStructure.Infrastructure.Trees
         {
             throw new NotImplementedException();
         }
+
+        private void LeftRotate(RebBlackBinaryTreeNode<T> x)
+        {
+            
+            
+
+        }
+
     }
 }

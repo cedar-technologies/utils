@@ -1,4 +1,6 @@
-﻿namespace DataStructure.Infrastructure.Assets
+﻿using DataStructure.Infrastructure.Trees;
+
+namespace DataStructure.Infrastructure.Assets
 {
     public class RebBlackBinaryTreeNode<T> : BinaryTreeNode<T>
     {
@@ -12,11 +14,22 @@
             }
         }
 
-        public RebBlackBinaryTreeNode(T data) : base(data)
+        public new RebBlackBinaryTreeNode<T> Parent
         {
+            get { return (RebBlackBinaryTreeNode<T>) base.Parent; }
         }
 
-        public RebBlackBinaryTreeNode(T data, BinaryTreeNode<T> left, BinaryTreeNode<T> right) : base(data, left, right)
+        public new RebBlackBinaryTreeNode<T> Right
+        {
+            get { return (RebBlackBinaryTreeNode<T>)base.Right; }
+        }
+
+        public new RebBlackBinaryTreeNode<T> Left
+        {
+            get { return (RebBlackBinaryTreeNode<T>)base.Left; }
+        }
+
+        public RebBlackBinaryTreeNode(T data) : base(data)
         {
         }
 
